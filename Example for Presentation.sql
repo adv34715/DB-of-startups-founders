@@ -14,17 +14,18 @@ CREATE TABLE Company(
   ,state         VARCHAR(2) DEFAULT 'Tx'
   ,region        VARCHAR(10) NOT NULL DEFAULT 'Round Rock'
   ,zipcode       INTEGER  NOT NULL
-  ,zip4          INTEGER  NOT NULL  
+  ,zip4          INTEGER  NOT NULL 
+  ,comp_status   VARCHAR(10) DEFAULT ''
 );
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (10476280,'Kinnser Software Inc',2003,2,'','Austin','Tx',78746,7983);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (968005483,'Trilogy Inc',2011,1,'','Austin','Tx',78701,3744);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (606746217,'Bazaarvoice Inc',2005,1,'','Austin','Tx',78746,1714);
-INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (956208334,'Colabranet Inc',1996,1,'','Austin','Tx',78759,7278);
+INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,zipcode,zip4,comp_status) VALUES (956208334,'Colabranet Inc',1996,1,'',78759,7278,'Withdrawn');
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (40920143,'Bigcommerce Inc',2010,1,'','Austin','Tx',78757,1163);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (120999292,'Calavista Llc',2001,1,'Calavista','Austin','Tx',78757,7774);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (95981176,'Solarwinds Inc',1995,1,'','Austin','Tx',78746,8014);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (926024670,'Skipstone Inc',1994,1,'','Austin','Tx',78759,5316);
-INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (837281195,'Metrowerks Corporation',1994,1,'Motorola Metrowerks','Austin','Tx',78729,8084);
+INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,zipcode,zip4,comp_status) VALUES (837281195,'Metrowerks Corporation',1994,1,'Motorola Metrowerks',78729,8084,'Merged');
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (965476641,'Luminex Corporation',1995,1,'','Austin','Tx',78727,6100);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (50172805,'Q2 Software',2010,1,'','Austin','Tx',78750,1928);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (962143637,'Iconixx Software Corporation',2010,1,'','Austin','Tx',78701,2745);
@@ -301,11 +302,19 @@ INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYea
 
 
 /*big table*/
-Select Company.company,Company.yearstart,Company.yearstartcode,emp13,empc13,Founder.FounderName,
-Education.School1,Education.Degree1,Education.Major1,Education.StartYear1,Education.EndYear1,Education.Note1,
-Education.School2,Education.Degree2,Education.Major2,Education.StartYear2,Education.EndYear2,Education.Note2,
-Education.School3,Degree3,Education.Major3,Education.StartYear3,Education.EndYear3,Education.Note3,
-Education.School4,Degree4,Education.Major4,Education.StartYear4,Education.EndYear4,Education.Note4
+Select Company.company,
+CASE WHEN Company.yearstartcode = 1 
+THEN yearstart
+ELSE '' 
+END  AS NETSYear,
+CASE WHEN Company.yearstartcode = 2 
+THEN yearstart
+ELSE '' 
+END  AS SOSYear,
+emphere,emp13,Founder.FounderName,
+Education.School1,Education.Degree1,Education.Major1,Education.StartYear1,Education.EndYear1,
+Education.School2,Education.Degree2,Education.Major2,Education.StartYear2,Education.EndYear2,
+Education.School3,Degree3,Education.Major3,Education.StartYear3,Education.EndYear3
 from Company
 inner join Relation
 on Company.dunsnumber=Relation.dunsnumber
@@ -315,8 +324,7 @@ inner join Education
 on Education.FounderID=Founder.FounderID
 inner join Employment
 on Employment.dunsnumber=Company.dunsnumber
-group by Relation.FounderID
-order by emp13 desc;
+group by Relation.FounderID;
 
 /*table for establishemnt*/
 Select company, yearstart, yearstartcode,emp13,empc13 from Employment
