@@ -2,7 +2,7 @@ DROP TABLE Company;
 DROP TABLE Founder;
 DROP TABLE Employment;
 DROP TABLE Education;
-DROP TABLE Relation;
+DROP TABLE Comp_Founder;
 
 CREATE TABLE Company(
    dunsnumber    INTEGER  NOT NULL PRIMARY KEY 
@@ -15,8 +15,7 @@ CREATE TABLE Company(
   ,region        VARCHAR(10) NOT NULL DEFAULT 'Round Rock'
   ,zipcode       INTEGER  NOT NULL
   ,zip4          INTEGER  NOT NULL 
-  ,comp_status   VARCHAR(10) DEFAULT ''
-  ,OutofBis      INTEGER DEFAULT ''
+  ,comp_status   VARCHAR(25) DEFAULT ''
 );
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (10476280,'Kinnser Software Inc',2003,2,'','Austin','Tx',78746,7983);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (968005483,'Trilogy Inc',2011,1,'','Austin','Tx',78701,3744);
@@ -25,7 +24,7 @@ INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,zipcode
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (40920143,'Bigcommerce Inc',2010,1,'','Austin','Tx',78757,1163);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (120999292,'Calavista Llc',2001,1,'Calavista','Austin','Tx',78757,7774);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (95981176,'Solarwinds Inc',1995,1,'','Austin','Tx',78746,8014);
-INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (926024670,'Skipstone Inc',1994,1,'','Austin','Tx',78759,5316);
+INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4,comp_status) VALUES (926024670,'Skipstone Inc',1994,1,'','Austin','Tx',78759,5316,'voluntarily dissolved');
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,zipcode,zip4,comp_status) VALUES (837281195,'Metrowerks Corporation',1994,1,'Motorola Metrowerks',78729,8084,'Merged');
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (965476641,'Luminex Corporation',1995,1,'','Austin','Tx',78727,6100);
 INSERT INTO Company(dunsnumber,company,yearstart,yearstartcode,tradename,city,state,zipcode,zip4) VALUES (50172805,'Q2 Software',2010,1,'','Austin','Tx',78750,1928);
@@ -212,7 +211,7 @@ INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2,Major2,StartYear2,EndYear2) VALUES (15,'New York University','BA','Mathematics',1976,1979,'','Bronx High School of Science','','',1972,1976);
 INSERT INTO Education(FounderID,School1,Degree1,Major1) VALUES (16,'l''Universite du Quebec Montreal','M.S.','Computer Science');
 INSERT INTO Education(FounderID,School1,Degree1,Major1,School2,Degree2,Major2) VALUES (17,'University of California, Berkeley','undergraduate','','Oregon State University','Ph.D','');
-INSERT INTO Education(FounderID,School1,Degree1,Major1,Note1,School2,Degree2,Major2) VALUES (18,'University of Texas Southwestern Medical School in Dallas','Ph.D','Immunology','','Southwestern Medical School, University of Texas','Doctorate','');
+INSERT INTO Education(FounderID,School1,Degree1,Major1) VALUES (18,'University of Texas Southwestern Medical School in Dallas','Ph.D','Immunology');
 INSERT INTO Education(FounderID,School2,Degree2,Major2,Note2,School1,Degree1,Major1) VALUES (19,'University of Iowa','Bachelor','','','Southern Methodist University','M.B.A.','');
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2,Major2,StartYear2) VALUES (20,'The University of Texas at Arlington','BS','Statistics & Operations Research',1968,1972,'','Nolan Catholic High School','','',1968);
 INSERT INTO Education(FounderID,School1,Degree1,Major1,EndYear1) VALUES (21,'Texas Tech University','BS','Agricultural Economics',1984);
@@ -232,14 +231,14 @@ INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2,Major2,StartYear2,EndYear2) VALUES (34,'Ecole polytechnique federale de Lausanne','','Computer Science',1991,1992,'','The College of Wooster','BA','Music',1986,1990);
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2,Major2,StartYear2,EndYear2,school3) VALUES (35,'Duke University','BSEE','Electrical Engineering',1987,1991,'','University College London','','Mathematics and Computer Science',1989,1989,'Calvert Hall');
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2,Major2,StartYear2,EndYear2) VALUES (36,'University of Pennsylvania - The Wharton School','MBA','Entrepreneurship',1996,1998,'','The University of Chicago','BA','Economics',1987,1991);
-INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2) VALUES (37,'Vanderbilt Universty','MBA','',NULL,NULL,'','Universityo f Richmond','BS');
+INSERT INTO Education(FounderID,School1,Degree1,Major1,Note1,School2,Degree2) VALUES (37,'Vanderbilt Universty','MBA','','','Universityo f Richmond','BS');
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1) VALUES (38,'University of St. Thomas','','Marketing and Economics',1990,1994);
 INSERT INTO Education(FounderID,School1,Degree1,Major1,StartYear1,EndYear1,Note1,School2,Degree2,Major2,StartYear2,EndYear2) VALUES (39,'The University of Texas at Austin School of Law','J.D.','Law',1982,1985,'','The University of Texas at Austin - Red McCombs School of Business','BBA','Finance and International Business',1974,1982);
 INSERT INTO Education(FounderID,School1,Degree1,Major1,School2,Degree2,Major2,StartYear2,EndYear2,School3,StartYear3,EndYear3) VALUES (40,'Massachusetts Institute of Technology','graduate','Inc Birthing of Giants program','Texas A&M University','BS','Computer Science',1987,1990,'College St. Michel',1980,1986);
 
 
 
-CREATE TABLE Relation(
+CREATE TABLE Comp_Founder(
    dunsnumber        INTEGER  NOT NULL
   ,FounderID         INTEGER  NOT NULL
   ,JobTitle_sequence INTEGER  NOT NULL
@@ -249,56 +248,56 @@ CREATE TABLE Relation(
   ,Note              VARCHAR(66)DEFAULT '' 
   ,PRIMARY KEY(dunsnumber,FounderID,JobTitle_sequence)
 );
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (10476280,1,1,'President',2002,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (968005483,2,1,'Founder & VP',1989,2002,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (968005483,3,1,'CEO',1989,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (606746217,4,1,'Vice Chairman of the Board and Co-founder',2012,2014,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (606746217,4,2,'Founder, President, and CEO',2005,2007,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (606746217,5,1,'Co-Founder & Executive',2005,2013,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (956208334,6,1,'CFO & COO',2000,2003,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (956208334,7,1,'CEO and Co-Founder',2000,2003,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (40920143,8,1,'Co-Founder and CEO',2003,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (40920143,9,1,'Board Member',2015,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (40920143,9,2,'Co-Founder & Co-CEO','');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (120999292,10,1,'Co-Founder and Chief Operating Officer',2001,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (120999292,11,1,'Co-Founder & CTO',2001,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (95981176,12,1,'Chief Architect',1999,2006,'sat on the firm''s board until 2010');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (95981176,13,1,'Chairman & Chief Architect',1999,2006,'continued to serve on the company''s Board of Directors until 2010');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (926024670,14,1,'Co-Founder and VP of Engineering',1994,1997,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (926024670,15,1,'Co-Founder, Director of Software',1994,1997,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobEndYear,Note) VALUES (837281195,16,1,'President and Chief Executive Officer',1996,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobEndYear,Note) VALUES (837281195,16,2,'President and Chief Technology Officer',1999,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (965476641,17,1,'Co-Founder, former Member of Board of Directors','');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (965476641,18,1,'Chairman of the Board and Chief Executive Officer',1995,2002,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (965476641,18,2,'President',1999,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (965476641,19,1,'Member of the board of directors',2004,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (965476641,19,2,'Interim President and Chief Executive Officer',2002,2004,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (965476641,20,1,'Chief Technology Officer',1995,2005,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (50172805,21,1,'Chairman of the Board of CBG Holdgins, Inc.',2004,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (50172805,21,2,'CEO pf CBG Holdings, Q2 ebanking, cbanc Network',2004,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (50172805,21,3,'CEO of Q2 ebanking',2004,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,22,1,'VP of Engineering',2010,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (962143637,22,2,'Technical Architect',1998,2007,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,23,1,'Founder and CEO and acting CRO',2010,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,24,1,'Co-Founder, Vice President',2010,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (962143637,24,2,'Director',1998,2007,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,25,1,'Vice President - Customer Success',2010,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (962143637,25,2,'VP, HR Strategy',2000,2008,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (145044140,26,1,'Founder/CEO',2001,2014,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (152966276,27,1,'President and Founder',2005,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (140681276,28,1,'CEO, Co-Founder, Board Member',2003,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (140681276,29,1,'Co-Founder, EVP Strategy & Operations',2003,2014,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (140681276,29,2,'Advisory Board Member',2014,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (111098906,30,1,'Founder & Chairman',2011,'Present');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (111098906,30,2,'Founder &CEO',1999,2001,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (85286511,31,1,'Founder/Chairman',1998,2004,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (18874921,32,1,'Co-Founder & CEO',2007,2011,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (18874921,33,1,'President & Co-Founder',2008,2011,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (30096794,34,1,'Co-Founder and CTO',2005,2010,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (30096794,35,1,'Co-Founder & Board Member',2005,2015,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (30096794,35,2,'CEO & President',2005,2014,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (6738707,36,1,'CEO/Co-Founder',2000,2009,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (6738707,37,1,'Former Chairman and Co-Founder','');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (958125627,38,1,'Co-Founder, Executive Vice President of Publishing','');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (958125627,39,1,'General Counsel/Co-Founder',1996,2007,'');
-INSERT INTO Relation(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear) VALUES (143983323,40,2,'CEO','',''),(143983323,40,1,'Founder',2003,2014);
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (10476280,1,1,'President',2002,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (968005483,2,1,'Founder & VP',1989,2002,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (968005483,3,1,'CEO',1989,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (606746217,4,1,'Vice Chairman of the Board and Co-founder',2012,2014,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (606746217,4,2,'Founder, President, and CEO',2005,2007,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (606746217,5,1,'Co-Founder & Executive',2005,2013,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (956208334,6,1,'CFO & COO',2000,2003,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (956208334,7,1,'CEO and Co-Founder',2000,2003,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (40920143,8,1,'Co-Founder and CEO',2003,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (40920143,9,1,'Board Member',2015,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (40920143,9,2,'Co-Founder & Co-CEO','');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (120999292,10,1,'Co-Founder and Chief Operating Officer',2001,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (120999292,11,1,'Co-Founder & CTO',2001,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (95981176,12,1,'Chief Architect',1999,2006,'sat on the firm''s board until 2010');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (95981176,13,1,'Chairman & Chief Architect',1999,2006,'continued to serve on the company''s Board of Directors until 2010');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (926024670,14,1,'Co-Founder and VP of Engineering',1994,1997,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (926024670,15,1,'Co-Founder, Director of Software',1994,1997,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobEndYear,Note) VALUES (837281195,16,1,'President and Chief Executive Officer',1996,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobEndYear,Note) VALUES (837281195,16,2,'President and Chief Technology Officer',1999,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (965476641,17,1,'Co-Founder, former Member of Board of Directors','');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (965476641,18,1,'Chairman of the Board and Chief Executive Officer',1995,2002,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (965476641,18,2,'President',1999,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (965476641,19,1,'Member of the board of directors',2004,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (965476641,19,2,'Interim President and Chief Executive Officer',2002,2004,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (965476641,20,1,'Chief Technology Officer',1995,2005,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (50172805,21,1,'Chairman of the Board of CBG Holdgins, Inc.',2004,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (50172805,21,2,'CEO pf CBG Holdings, Q2 ebanking, cbanc Network',2004,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (50172805,21,3,'CEO of Q2 ebanking',2004,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,22,1,'VP of Engineering',2010,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (962143637,22,2,'Technical Architect',1998,2007,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,23,1,'Founder and CEO and acting CRO',2010,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,24,1,'Co-Founder, Vice President',2010,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (962143637,24,2,'Director',1998,2007,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (962143637,25,1,'Vice President - Customer Success',2010,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (962143637,25,2,'VP, HR Strategy',2000,2008,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (145044140,26,1,'Founder/CEO',2001,2014,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (152966276,27,1,'President and Founder',2005,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (140681276,28,1,'CEO, Co-Founder, Board Member',2003,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (140681276,29,1,'Co-Founder, EVP Strategy & Operations',2003,2014,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (140681276,29,2,'Advisory Board Member',2014,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,Note) VALUES (111098906,30,1,'Founder & Chairman',2011,'Present');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (111098906,30,2,'Founder &CEO',1999,2001,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (85286511,31,1,'Founder/Chairman',1998,2004,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (18874921,32,1,'Co-Founder & CEO',2007,2011,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (18874921,33,1,'President & Co-Founder',2008,2011,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (30096794,34,1,'Co-Founder and CTO',2005,2010,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (30096794,35,1,'Co-Founder & Board Member',2005,2015,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (30096794,35,2,'CEO & President',2005,2014,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (6738707,36,1,'CEO/Co-Founder',2000,2009,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (6738707,37,1,'Former Chairman and Co-Founder','');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,Note) VALUES (958125627,38,1,'Co-Founder, Executive Vice President of Publishing','');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear,Note) VALUES (958125627,39,1,'General Counsel/Co-Founder',1996,2007,'');
+INSERT INTO Comp_Founder(dunsnumber,FounderID,JobTitle_sequence,JobTitle,JobStartYear,JobEndYear) VALUES (143983323,40,2,'CEO','',''),(143983323,40,1,'Founder',2003,2014);

@@ -1,11 +1,33 @@
- 
-/*big table*/
+ /*big table*/
 set @rownum = 0;
-set @tempstr= '';
-
 Select 
 #(@rownum := @rownum+1) AS RowNumber,
-Company.company,
+Company.company AS Company,
+#@x:=ifnull(0,@x)+1 AS RowNumber,
+CASE WHEN Company.yearstartcode = 1 
+THEN yearstart
+ELSE '' 
+END  SOSYear,
+emp13 AS Emp2013,
+Founder.FounderName
+,Education.Degree1 AS HighestDegree
+,Education.School1 AS School_HighestDegree
+,Education.Major1 AS Major_HighestDegree
+,Education.StartYear1 AS StartYear,Education.EndYear1 AS EndYear
+from Company
+inner join Comp_Founder
+on Company.dunsnumber=Comp_Founder.dunsnumber
+inner join Founder
+on Founder.FounderID=Comp_Founder.FounderID
+inner join Education
+on Education.FounderID=Founder.FounderID
+inner join Employment
+on Employment.dunsnumber=Company.dunsnumber
+group by Comp_Founder.FounderID
+order by Company.yearstart;
+
+/*table for establishemnt*/
+Select company, 
 CASE WHEN Company.yearstartcode = 1 
 THEN yearstart
 ELSE '' 
@@ -13,29 +35,13 @@ END  AS NETSYear,
 CASE WHEN Company.yearstartcode = 2 
 THEN yearstart
 ELSE '' 
-END  AS SOSYear,
-emphere,emp13,Founder.FounderName,
-Education.School1,Education.Degree1,Education.Major1,Education.StartYear1,Education.EndYear1,
-Education.School2,Education.Degree2,Education.Major2,Education.StartYear2,Education.EndYear2,
-Education.School3,Degree3,Education.Major3,Education.StartYear3,Education.EndYear3
-from Company
-inner join Relation
-on Company.dunsnumber=Relation.dunsnumber
-inner join Founder
-on Founder.FounderID=Relation.FounderID
-inner join Education
-on Education.FounderID=Founder.FounderID
-inner join Employment
-on Employment.dunsnumber=Company.dunsnumber
-group by Relation.FounderID
-order by NETSYear
-limit 100;
-
-/*table for establishemnt*/
-Select company, yearstart, yearstartcode,emp13,empc13 from Employment
+END  AS SOSYear
+,emp13
+,comp_status
+from Employment
 inner join Company
 on Company.dunsnumber=Employment.dunsnumber
-order by emp13 desc;
+order by Company.yearstart;
 
 /*table for founders*/
 Select FounderName,Education.School1,Education.Degree1,Education.Major1,Education.StartYear1,Education.EndYear1,Education.Note1,
